@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const Widgets: React.FC = () => {
   return (
-    <VStack spacing={8}>
+    <VStack spacing={8} w="100">
       
       <LearnWidget />
       <WorkWidget/>
