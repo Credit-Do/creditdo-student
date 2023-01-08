@@ -14,7 +14,7 @@ const Profile = () => {
       spacing={8}
       flex={1}
     >
-      <Header profilePicture='https://api.multiavatar.com/jasonhedman.png' firstName='Erica' lastName="L." teacher='Ms. Garcia'/>
+      <Header />
       <Actions />
     </VStack>
   )
