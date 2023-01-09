@@ -1,10 +1,10 @@
-import { Class } from "./class";
+import { Event } from "./event";
 import { Student } from "./user";
 
 export interface Contribution {
     contributionId: string;
-    classId: Class["classId"];
     studentId: Student["userId"];
+    eventId: Event["eventId"];
     hours: number;
     pounds: number;
 }

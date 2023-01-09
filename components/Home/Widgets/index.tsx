@@ -18,7 +18,9 @@ const Widgets: React.FC<Props> = ({ studentData }) => {
       <LearnWidget
         classId={studentData.classId}
       />
-      <WorkWidget/>
+      <WorkWidget
+        userId={studentData.userId}
+      />
       <SaveWidget />
     </VStack>
   );
