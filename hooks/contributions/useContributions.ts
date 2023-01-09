@@ -9,7 +9,7 @@ const useUserContributions = (userId: string) => {
 
     useEffect(() => {
         setContributions(contributionsData)
-    }, [contributions])
+    }, [])
 
     return contributions;
 }

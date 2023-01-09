@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem, HStack, Icon, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Box, Grid, GridItem, HStack, Icon, SimpleGrid, Skeleton, Text, VStack } from '@chakra-ui/react';
 import React from 'react'
 import { RiMoneyDollarCircleLine, RiScales2Fill } from 'react-icons/ri';
 import { GiMeal } from 'react-icons/gi'
@@ -13,11 +13,19 @@ interface Props {
 const EventImpactItem: React.FC<Props> = ({ eventId }) => {
 
     const {
-        totalPounds,
-        totalMeals,
-        dollarsPerPound,
-        totalDollars
+        metric
     } = useEventContributions(eventId);
+
+    if(!metric) {
+        return <Skeleton />
+    }
+
+    const {
+        totalPounds,
+        totalDollars,
+        totalMeals,
+        dollarsPerPound
+    } = metric;
 
     return (
         <SimpleGrid

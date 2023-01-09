@@ -1,140 +1,97 @@
 import React from 'react'
 
-import { Box, Flex, HStack, Icon, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, HStack, Icon, Skeleton, Text, VStack, Image } from '@chakra-ui/react';
 
 import { IconType } from 'react-icons';
+import LeaderboardData from './LeaderboardData';
+
+import { Metric } from '../../../../types/metric';
+import { ClassMetric } from '../../../../types/classMetric';
+import useTeacherData from '../../../../hooks/teacher/useTeacherData';
+import { formatTeacherName } from '../../../../services/utils';
 
 interface Props {
-    teacher: string,
-    pounds: number,
-    money: number,
-    meals: number,
-    avgCost: number,
-    icon: IconType,
-    timeFrame: string,
     ranking: number
+    classMetric: ClassMetric
 }
 
-const LeaderboardItem: React.FC<Props> = ({ teacher, pounds, money, meals, avgCost, icon, timeFrame, ranking}) => {
+const LeaderboardItem: React.FC<Props> = ({ ranking, classMetric}) => {
+
+    const {
+        totalPounds,
+        totalMeals,
+        totalDollars,
+        dollarsPerPound
+    } = classMetric.metric;
+
+    const teacherData = useTeacherData(classMetric.class.teacherId);
+
+    if(!teacherData) {
+        return <Skeleton />
+    }
+
     return (
-        <Flex
+        <HStack
             w='100%'
-            flexDirection='column'
+            alignItems='flex-start'
+            spacing={6}
         >
-            <HStack
-                w='100%'
+            <Text
+                size='xl'
+                color='gray'
+            >
+                {ranking}
+            </Text>
+            <Image 
+                boxSize={8}
+                src={teacherData.profilePicture}
+                alt='teacher profile picture'
+            />
+            <VStack
+                flex={1}
                 alignItems='flex-start'
             >
-                <Text
-                    fontSize='24px'
-                    color='gray'
-                >
-                    {ranking}
-                </Text>
-                <Icon 
-                    as={icon} 
-                    w={8} 
-                    h={8} 
-                />
                 <VStack
-                    flex={1}
                     alignItems='flex-start'
+                    spacing={0}
                 >
-                    <VStack
-                        alignItems='flex-start'
-                        spacing={0}
+                    <Text
+                        size='md'
                     >
-                        <Text
-                            fontSize='md'
-                        >
-                            {teacher}&apos;s
-                        </Text>
-                        <Text
-                            fontSize='md'
-                        >
-                            {timeFrame} class
-                        </Text>                        
-                    </VStack>
-                    <HStack
-                        marginLeft='auto'                
+                        {formatTeacherName(teacherData)}&apos;s
+                    </Text>
+                    <Text
+                        size='sm'
                     >
-                        <VStack
-                            alignItems='flex-start'
-                            spacing={0}
-                        >
-                            <Text
-                                color='gray'
-                                fontSize='xs'
-                                fontWeight='semibold'
-                            >
-                                POUNDS
-                            </Text>
-                            <Text
-                                color='purple.500'
-                                fontSize='xl'
-                                fontWeight='semibold'
-                            >
-                                {pounds.toLocaleString()}
-                            </Text>
-                        </VStack>
-                        <VStack
-                            spacing={0}
-                        >
-                            <Text
-                                color='gray'
-                                fontSize='xs'
-                                fontWeight='semibold'
-                            >
-                                MEALS
-                            </Text>
-                            <Text
-                                color='yellow.500'
-                                fontSize='xl'
-                                fontWeight='semibold'
-                            >
-                                {meals.toLocaleString()}
-                            </Text>
-                        </VStack>
-                        <VStack
-                            spacing={0}
-                        >
-                            <Text
-                                color='gray'
-                                fontSize='xs'
-                                fontWeight='semibold'
-                            >
-                                VALUE
-                            </Text>
-                            <Text
-                                color='green.500'
-                                fontSize='xl'
-                                fontWeight='semibold'
-                            >
-                                ${(money / 1000).toFixed(1)}k
-                            </Text>
-                        </VStack>
-                        <VStack
-                            spacing={0}
-                        >
-                            <Text
-                                color='gray'
-                                fontSize='xs'
-                                fontWeight='semibold'
-                            >
-                                AVG. COST
-                            </Text>
-                            <Text
-                                color='pink.500'
-                                fontSize='xl'
-                                fontWeight='semibold'
-                            >
-                                ${Math.round(avgCost)} / lb
-                            </Text>
-                        </VStack>
-                    </HStack>
+                        {classMetric.class.name}
+                    </Text>                        
                 </VStack>
-            </HStack>
-        </Flex>
+                <HStack
+                    spacing={4}
+                >
+                    <LeaderboardData 
+                        value={totalPounds.toLocaleString()}
+                        label='POUNDS'
+                        color='purple.500'
+                    />
+                    <LeaderboardData 
+                        value={totalMeals.toLocaleString()}
+                        label='MEALS'
+                        color='yellow.500'
+                    />
+                    <LeaderboardData 
+                        value={`$${(totalDollars / 1000).toFixed(1)}k`}
+                        label='VALUE'
+                        color='green.500'
+                    />
+                    <LeaderboardData 
+                        value={`$${Math.round(dollarsPerPound).toLocaleString()} / lb`}
+                        label='AVG. COST'
+                        color='pink.500'
+                    />
+                </HStack>
+            </VStack>
+        </HStack>
     )
 }
 

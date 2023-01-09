@@ -13,7 +13,7 @@ const Metrics : React.FC<Props> = ({ classId }) => {
   return (
     <Flex
       direction='column'
-      gap={8}
+      gap={16}
     >
       <EventImpact 
         classId={classId}
