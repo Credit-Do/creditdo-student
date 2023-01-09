@@ -21,7 +21,9 @@ const Widgets: React.FC<Props> = ({ studentData }) => {
       <WorkWidget
         userId={studentData.userId}
       />
-      <SaveWidget />
+      <SaveWidget 
+        userId={studentData.userId}
+      />
     </VStack>
   );
 };
