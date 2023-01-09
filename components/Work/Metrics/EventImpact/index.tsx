@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
-import { Box, HStack, VStack, Text, Menu, MenuButton, MenuList, Button, MenuItem } from '@chakra-ui/react'
+import { Box, HStack, VStack, Text, Menu, MenuButton, MenuList, Button, MenuItem, Skeleton } from '@chakra-ui/react'
 
 import { RiArrowDropDownLine } from 'react-icons/ri'
 
 import EventImpactItem from './EventImpactItem'
+import useMostRecentEvent from '../../../../hooks/classes/useMostRecentEvent'
 
 const eventImpacts = [
     {
@@ -17,10 +18,19 @@ const eventImpacts = [
     }
 ]
 
-const EventImpact = () => {
+interface Props {
+    classId: string
+}
 
+const EventImpact: React.FC<Props> = ({ classId }) => {
+    
+    const mostRecentEvent = useMostRecentEvent(classId)
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+    if(!mostRecentEvent) {
+        return <Skeleton />
+    }
 
     return (
         <VStack
@@ -31,13 +41,24 @@ const EventImpact = () => {
                 w='100%'
                 justifyContent={'space-between'}
             >
-                <Text
-                    fontSize='xl'
-                    color='gray'
-                    fontWeight='semibold'
+                <VStack
+                    alignItems='flex-start'
+                    spacing={0}
                 >
-                    My Class Impact
-                </Text>
+                    <Text
+                        fontSize='lg'
+                        color='blackAlpha.700'
+                        fontWeight='semibold'
+                    >
+                        My Class Impact
+                    </Text>
+                    <Text
+                        fontSize='sm'
+                        color='blackAlpha.600'
+                    >
+                        From Most Recent Event
+                    </Text>
+                </VStack>
                 <Menu>
                     <MenuButton
                         as={Button}
@@ -45,6 +66,7 @@ const EventImpact = () => {
                         color='cyan.500'
                         fontWeight='semibold'
                         variant='ghost'
+                        size='sm'
                     >
                         {eventImpacts[currentIndex].name}
                     </MenuButton>
@@ -64,29 +86,9 @@ const EventImpact = () => {
                     </MenuList>
                 </Menu>
             </HStack>
-            <Text
-                fontSize='lg'
-                color='gray'
-                w='100%'
-                justifyContent='flex-start'
-            >
-                From Most Recent Event
-            </Text>
-            {
-                eventImpacts
-                    .filter((_, index) => index === currentIndex)
-                    .map((eventImpact, index) => (
-                        <EventImpactItem
-                            key={index}
-                            name={eventImpact.name}
-                            pounds={eventImpact.pounds}
-                            money={eventImpact.money}
-                            meals={eventImpact.meals}
-                            avgCost={eventImpact.avgCost}
-                            selected={eventImpact.selected}
-                        />
-                    ))
-            }
+            <EventImpactItem 
+                eventId={mostRecentEvent.eventId}
+            />
         </VStack>
     )
 }

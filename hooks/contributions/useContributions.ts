@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { contributions as contributionsData } from "../data/contribution";
+import { contributions as contributionsData } from "../../data/contribution";
 
-import { Contribution } from "../types/contribution";
+import { Contribution } from "../../types/contribution";
 
-const useContributions = (userId: string) => {
+const useUserContributions = (userId: string) => {
     const [contributions, setContributions] = useState<Contribution[]>([]);
 
     useEffect(() => {
@@ -14,4 +14,4 @@ const useContributions = (userId: string) => {
     return contributions;
 }
 
-export default useContributions;
+export default useUserContributions;

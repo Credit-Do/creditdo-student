@@ -37,7 +37,9 @@ const Work : React.FC = () => {
                     Metrics
                 </Tab>
             </TabList>
-            <TabPanels>
+            <TabPanels
+                pt={8}
+            >
                 <TabPanel>
                     <Events 
                         classId={studentData.classId}
@@ -45,7 +47,9 @@ const Work : React.FC = () => {
                     />
                 </TabPanel>
                 <TabPanel>
-                    <Metrics />
+                    <Metrics 
+                        classId={studentData.classId}
+                    />
                 </TabPanel>
             </TabPanels>
         </Tabs>

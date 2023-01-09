@@ -5,7 +5,7 @@ import { HStack } from "@chakra-ui/react";
 import Widget from "../Widget";
 import InfoDisplay from "./InfoDisplay";
 
-import useContributions from "../../../../hooks/useContributions";
+import useUserContributions from "../../../../hooks/contributions/useContributions";
 
 interface Props {
   userId: string;
@@ -13,7 +13,7 @@ interface Props {
 
 const WorkWidget: React.FC<Props> = ({ userId }) => {
 
-  const contributions = useContributions(userId)
+  const contributions = useUserContributions(userId)
 
   return (
     <Widget title="Work" href="/work" bg="orange.300">
