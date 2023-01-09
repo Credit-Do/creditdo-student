@@ -13,7 +13,7 @@ interface Props {
 
 const Widgets: React.FC<Props> = ({ studentData }) => {
   return (
-    <VStack spacing={8}>
+    <VStack spacing={8} w="100">
       
       <LearnWidget
         classId={studentData.classId}
