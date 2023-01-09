@@ -21,9 +21,21 @@ const Learn = () => {
             colorScheme="orange"
             flex={1}
         >
-            <TabList>
-                <Tab>Lessons</Tab>
-                <Tab>My Goals</Tab>
+            <TabList
+                shadow="md"
+                mx={-4}
+                mt={-4}
+            >
+                <Tab
+                    p={4}
+                >
+                    Lessons
+                </Tab>
+                <Tab
+                    p={4}
+                >
+                    My Goals
+                </Tab>
             </TabList>
             <TabPanels>
                 <TabPanel>

@@ -1,25 +1,48 @@
 import React from 'react'
 
-import { Stack, Heading } from '@chakra-ui/react'
+import { Heading, HStack, theme } from '@chakra-ui/react'
+import { DownloadIcon } from '@chakra-ui/icons';
+import { BiDotsVerticalRounded } from 'react-icons/bi';
 interface Props {
   weekNumber: number;
+  lessonSelected: boolean;
+  onDownload: () => void;
+  onMore: () => void;
 }
 
-const WeekHeader : React.FC<Props> = ({ weekNumber }) => {
+const WeekHeader : React.FC<Props> = ({ weekNumber, lessonSelected, onDownload, onMore }) => {
   return (
-    <Stack
+    <HStack
       direction="row"
       alignItems="center"
       borderRadius={1}
-      px={1.5}
-      py={0.25}
+      w='100%'
+      justifyContent='space-between'
     >
       <Heading
         size='md'
+        color={lessonSelected ? 'orange.500' : 'black'}
       >
         Week {weekNumber}
-      </Heading> 
-    </Stack>
+      </Heading>
+      {
+        lessonSelected && (
+          <HStack>
+          <DownloadIcon 
+            onClick={onDownload}
+            cursor='pointer'
+            color='orange.500'
+          />
+          <BiDotsVerticalRounded 
+            onClick={onMore}
+            cursor='pointer'
+            color={theme.colors.orange[500]}
+          />
+        </HStack>
+        )
+      }
+      
+    </HStack>
   )
 }
 

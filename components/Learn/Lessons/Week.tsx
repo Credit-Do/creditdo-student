@@ -9,21 +9,32 @@ import { Lesson } from '../../../types/lesson'
 interface Props {
     weekNumber: number;
     lessons: Lesson[];
+    selectedLesson: Lesson | null;
+    selectLesson: (lesson: Lesson) => void;
+    onDownload: () => void;
+    onMore: () => void;
 }
 
-const Week: React.FC<Props> = ({ weekNumber, lessons }) => {
+const Week: React.FC<Props> = ({ weekNumber, lessons, selectedLesson, selectLesson, onDownload, onMore }) => {
   return (
     <VStack 
         spacing={2}
         alignItems='left'
         w='100%'
     >
-        <WeekHeader weekNumber={weekNumber} />
+        <WeekHeader 
+            weekNumber={weekNumber}
+            lessonSelected={Boolean(lessons.find(lesson => lesson.lessonId === selectedLesson?.lessonId))}
+            onDownload={onDownload}
+            onMore={onMore}
+        />
         {
-            lessons.map((lesson, index) => (
+            lessons.map(lesson => (
                 <LessonCard
-                    key={index}
+                    key={lesson.lessonId}
                     lesson={lesson}
+                    selected={lesson.lessonId === selectedLesson?.lessonId}
+                    onSelect={() => selectLesson(lesson)}
                 />
             ))
         }
