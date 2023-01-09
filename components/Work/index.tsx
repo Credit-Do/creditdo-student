@@ -5,7 +5,6 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Skeleton } from '@chakra-ui/re
 import Events from './Events'
 import Metrics from './Metrics'
 
-import useClassData from '../../hooks/useClassData'
 import useStudentData from '../../hooks/useStudentData'
 
 const Work : React.FC = () => {
@@ -19,16 +18,30 @@ const Work : React.FC = () => {
     return (
         <Tabs 
             isFitted
-            colorScheme='orange'
+            colorScheme="orange"
+            flex={1}
         >
-            <TabList>
-                <Tab>Events</Tab>
-                <Tab>Metrics</Tab>
+            <TabList
+                shadow="md"
+                mx={-4}
+                mt={-4}
+            >
+                <Tab
+                    p={4}
+                >
+                    Events
+                </Tab>
+                <Tab
+                    p={4}
+                >
+                    Metrics
+                </Tab>
             </TabList>
             <TabPanels>
                 <TabPanel>
                     <Events 
                         classId={studentData.classId}
+                        userId={studentData.userId}
                     />
                 </TabPanel>
                 <TabPanel>

@@ -7,10 +7,11 @@ import UpcomingEvent from './UpcomingEvent'
 import useUpcomingEvents from '../../../hooks/useUpcomingEvents'
 
 interface Props {
-  classId: string
+  classId: string,
+  openClockInModal: (eventId: string) => void
 }
 
-const UpcomingEvents: React.FC<Props> = ({ classId }) => {
+const UpcomingEvents: React.FC<Props> = ({ classId, openClockInModal }) => {
 
   const upcomingEvents = useUpcomingEvents(classId);
 
@@ -29,6 +30,7 @@ const UpcomingEvents: React.FC<Props> = ({ classId }) => {
           <UpcomingEvent 
             event={event}
             key={event.eventId}
+            openClockInModal={() => openClockInModal(event.eventId)}
           />
         ))
       }

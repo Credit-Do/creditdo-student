@@ -15,9 +15,10 @@ import moment from 'moment';
 
 interface Props {
     event: Event;
+    openClockInModal: () => void;
 }
 
-const UpcomingEvent: React.FC<Props> = ({ event }) => {
+const UpcomingEvent: React.FC<Props> = ({ event, openClockInModal }) => {
 
     const startDate = moment(event.startDate);
 
@@ -103,6 +104,7 @@ const UpcomingEvent: React.FC<Props> = ({ event }) => {
         <Button
             w='100%'
             colorScheme='green'
+            onClick={openClockInModal}
         >
             Clock In
         </Button>
