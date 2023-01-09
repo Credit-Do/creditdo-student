@@ -1,39 +1,44 @@
 import React from 'react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import { WeeklyLessons } from '../../hooks/types'
-import useGoals from '../../hooks/useGoals'
-import LearnPage from './components/Lessons/LearnPage'
-import { lessonData } from '../../data/learn'
-import GoalsPage from './components/Goals/GoalsPage'
 
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Skeleton } from '@chakra-ui/react'
+
+import Lessons from './Lessons'
+import GoalsPage from './Goals'
+
+import useStudentData from '../../hooks/useStudentData'
 
 const Learn = () => {
-    const weeklyLessons: WeeklyLessons[] = lessonData;
 
-    const { eventList, shortList, longList, doneList } = useGoals();
+    const studentData = useStudentData();
 
-  return (
-    <Tabs isFitted
-        colorScheme="orange"
-    >
-        <TabList>
-            <Tab>Lessons</Tab>
-            <Tab>My Goals</Tab>
-        </TabList>
-        <TabPanels>
-            <TabPanel>
-                <LearnPage schedule={weeklyLessons}/>
-            </TabPanel>
-            <TabPanel>
-                <GoalsPage 
-                    eventGoals={eventList} 
-                    shortTermGoals={shortList} 
-                    longTermGoals={longList} 
-                    done={doneList}/>
-            </TabPanel>
-        </TabPanels>
-    </Tabs>
-  )
+    if (!studentData) {
+        return <Skeleton />
+    }
+
+    return (
+        <Tabs 
+            isFitted
+            colorScheme="orange"
+            flex={1}
+        >
+            <TabList>
+                <Tab>Lessons</Tab>
+                <Tab>My Goals</Tab>
+            </TabList>
+            <TabPanels>
+                <TabPanel>
+                    <Lessons
+                        classId={studentData.classId}
+                    />
+                </TabPanel>
+                <TabPanel>
+                    <GoalsPage
+                        userId={studentData.userId}
+                    />
+                </TabPanel>
+            </TabPanels>
+        </Tabs>
+    )
 }
 
 export default Learn

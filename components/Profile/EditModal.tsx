@@ -3,9 +3,7 @@ import React from 'react'
 import { 
     Avatar, 
     Button, 
-    FormControl, 
-    FormLabel, 
-    Input, 
+    Text, 
     Modal, 
     ModalBody, 
     ModalCloseButton, 
@@ -16,32 +14,31 @@ import {
     VStack 
 } from '@chakra-ui/react';
 
-import useEditUserData from '../../hooks/useEditUserData';
+import useEditProfilePicture from '../../hooks/useEditProfilePicture';
 
-import { UserData } from '../../types/user';
+import { Student } from '../../types/user';
+import { formatStudentName } from '../../services/utils';
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    userData: UserData
+    studentData: Student
 }
 
-const EditModal: React.FC<Props> = ({ isOpen, onClose, userData }) => {
+const EditModal: React.FC<Props> = ({ isOpen, onClose, studentData }) => {
 
     const {
-        firstName,
-        setFirstName,
-        lastName,
-        setLastName,
         profilePicture,
         randomizeProfilePicture,
-        updateUser
-    } = useEditUserData(userData);
+        saveProfilePicture
+    } = useEditProfilePicture(studentData);
 
     const onSave = async () => {
-        await updateUser();
+        await saveProfilePicture();
         onClose();
     }
+
+    const studentName = formatStudentName(studentData);
 
     return (
         <Modal
@@ -59,7 +56,7 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose, userData }) => {
                     >
                         <VStack>
                             <Avatar
-                                name={`${firstName} ${lastName}`}
+                                name={studentName}
                                 src={profilePicture}
                                 size='xl'
                             />
@@ -69,37 +66,9 @@ const EditModal: React.FC<Props> = ({ isOpen, onClose, userData }) => {
                                 Randomize
                             </Button>
                         </VStack>
-                        <FormControl
-                            display='flex'
-                            gap={4}
-                        >
-                            <VStack
-                                spacing={0}
-                                alignItems='flex-start'
-                            >
-                                <FormLabel>
-                                    First Name
-                                </FormLabel>
-                                <Input 
-                                    placeholder='First Name'
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)} 
-                                />
-                            </VStack>
-                            <VStack
-                                spacing={0}
-                                alignItems='flex-start'
-                            >
-                                <FormLabel>
-                                    Last Name
-                                </FormLabel>
-                                <Input
-                                    placeholder='Last Name'
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                />
-                            </VStack>
-                        </FormControl>
+                        <Text>
+                            {studentName}
+                        </Text>
                     </VStack>
                 </ModalBody>
                 <ModalFooter>

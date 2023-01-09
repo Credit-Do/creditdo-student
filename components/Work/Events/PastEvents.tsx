@@ -1,54 +1,41 @@
 import { VStack, Text, HStack } from '@chakra-ui/react'
 import React from 'react'
+import usePastEvents from '../../../hooks/usePastEvents';
 import { Event } from '../../../types/event'
 import PastEvent from './PastEvent'
 
-const pastEvents : Event[] = [
-    {
-        title: 'Food Drive',
-        type: 'Supply School Drive',
-        month: 'Aug',
-        date: "21",
-        day: "Sat",
-        time: '10:00 AM',
-        imageURL: 'https://via.placeholder.com/75'
-    },
-    {
-        title: 'Food Drive',
-        type: 'Supply School Drive',
-        month: 'Aug',
-        date: "21",
-        day: "Sat",
-        time: '10:00 AM',
-        imageURL: 'https://via.placeholder.com/75'
-    },
-]
+interface Props {
+    classId: string;
+}
 
-const PastEvents = () => {
-  return (
-    <VStack
-        alignItems='flex-start'
-    >
-        <Text
-            fontSize='xl'
-            fontWeight='bold'
+const PastEvents: React.FC<Props> = ({ classId }) => {
+
+    const pastEvents = usePastEvents(classId);
+
+    return (
+        <VStack
+            alignItems='flex-start'
         >
-            Past Events
-        </Text>
-        <HStack
-            w="100%"
-        >
-            {
-                pastEvents.map((event, index) => (
-                    <PastEvent 
-                        key={index}
-                        event={event}
-                    />
-                ))
-            }
-        </HStack>
-    </VStack>
-  )
+            <Text
+                fontSize='xl'
+                fontWeight='bold'
+            >
+                Past Events
+            </Text>
+            <HStack
+                w="100%"
+            >
+                {
+                    pastEvents.map((event, index) => (
+                        <PastEvent 
+                            key={index}
+                            event={event}
+                        />
+                    ))
+                }
+            </HStack>
+        </VStack>
+    )
 }
 
 export default PastEvents

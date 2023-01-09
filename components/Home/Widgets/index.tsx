@@ -5,13 +5,19 @@ import { VStack } from "@chakra-ui/react";
 import LearnWidget from "./LearnWidget";
 import SaveWidget from "./SaveWidget";
 import WorkWidget from "./WorkWidget";
-import Link from "next/link";
+import { Student } from "../../../types/user";
 
-const Widgets: React.FC = () => {
+interface Props {
+  studentData: Student
+}
+
+const Widgets: React.FC<Props> = ({ studentData }) => {
   return (
     <VStack spacing={8}>
       
-      <LearnWidget />
+      <LearnWidget
+        classId={studentData.classId}
+      />
       <WorkWidget/>
       <SaveWidget />
     </VStack>

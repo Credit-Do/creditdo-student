@@ -1,14 +1,18 @@
 import React from 'react'
-import { Lesson } from '../../../../hooks/types'
-import Card from '../../../utility/Card'
-import { Heading, VStack, HStack, Text, Link } from '@chakra-ui/react'
+
+import { Heading, VStack, HStack, Text } from '@chakra-ui/react'
+
+import Card from '../../utility/Card'
 import CompletedBadge from './CompletedBadge'
 
+import { Lesson } from '../../../types/lesson'
+import moment from 'moment'
+
 interface Props {
-    lesson: Lesson
+  lesson: Lesson
 }
 
-const LessonCard: React.FC<Props> = ({lesson}) => {
+const LessonCard: React.FC<Props> = ({ lesson }) => {
   return (
     <Card>
       <HStack
@@ -19,13 +23,13 @@ const LessonCard: React.FC<Props> = ({lesson}) => {
         >
           <Heading
           size='sm'>
-            {lesson.title}
+            {lesson.subject}
           </Heading>
           <Text
             fontSize='xs'
             color='gray'
           >
-            {"due " + lesson.dueDate.toString().substring(4, 10)}
+            {"Due " + moment(lesson.dueDate).format('MMM Do')}
           </Text>
         </VStack>
         <CompletedBadge completed={lesson.completed}></CompletedBadge>

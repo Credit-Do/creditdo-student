@@ -7,6 +7,7 @@ import { FaBriefcase } from 'react-icons/fa';
 import Card from '../../utility/Card';
 
 import { Event } from '../../../types/event'
+import moment from 'moment';
 
 interface Props {
     event: Event;
@@ -18,14 +19,14 @@ const PastEvent : React.FC<Props> = ({ event }) => {
         p={0}
     >
         <Image
-            src={event.imageURL}
+            src={event.pictureUrl}
             roundedTop='md'
             alt={event.title}
         />
         <VStack
             alignItems='flex-start'
             spacing={0}
-            p={2}
+            p={4}
         >
             <Text
                 fontSize='sm'
@@ -45,7 +46,7 @@ const PastEvent : React.FC<Props> = ({ event }) => {
                 <Text
                     fontSize='sm'
                 >
-                    {event.time}
+                    {moment(event.startDate).format('MMM Do YYYY')}
                 </Text>
             </HStack>
         </VStack>

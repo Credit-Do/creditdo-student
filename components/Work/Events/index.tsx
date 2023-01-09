@@ -1,13 +1,23 @@
-import { Box } from '@chakra-ui/react'
 import React from 'react'
+
+import { Box } from '@chakra-ui/react'
+
 import PastEvents from './PastEvents'
 import UpcomingEvents from './UpcomingEvents'
+interface Props {
+  classId: string
+}
 
-const Events : React.FC = () => {
+const Events : React.FC<Props> = ({ classId }) => {
+
   return (
     <Box>
-      <UpcomingEvents />
-      <PastEvents />
+      <UpcomingEvents 
+        classId={classId}
+      />
+      <PastEvents 
+        classId={classId}
+      />
     </Box>
   )
 }

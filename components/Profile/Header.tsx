@@ -8,26 +8,25 @@ import {
     Skeleton, 
 } from '@chakra-ui/react'
 
-import useUserData from '../../hooks/useUserData'
+import useStudentData from '../../hooks/useStudentData'
 import EditModal from './EditModal'
-
-const teacher = 'Ms. Garcia'
+import { formatStudentName, formatTeacherName } from '../../services/utils'
+import useTeacherData from '../../hooks/useTeacherData'
 
 const Header: React.FC = () => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const userData = useUserData();
+    const studentData = useStudentData();
+    
+    // later we will need to push this a level deeper because we need to get classId to get teacherId
+    const teacherData = useTeacherData("1");
 
-    if (!userData) {
+    if (!studentData) {
         return <Skeleton />
     }
 
-    const {
-        firstName,
-        lastName,
-        profilePicture,
-    } = userData;
+    const studentName = formatStudentName(studentData);
 
     const avatarSize = 'xl'
     
@@ -36,7 +35,7 @@ const Header: React.FC = () => {
             <EditModal 
                 isOpen={isOpen}
                 onClose={onClose}
-                userData={userData}
+                studentData={studentData}
             />
             <VStack
                 spacing={2}
@@ -48,8 +47,8 @@ const Header: React.FC = () => {
                     size={avatarSize}
                 >
                     <Avatar
-                        name={`${firstName} ${lastName}}`}
-                        src={profilePicture}
+                        name={studentName}
+                        src={studentData.profilePicture}
                         size={avatarSize}
                         border='4px white solid'
                     />
@@ -59,14 +58,14 @@ const Header: React.FC = () => {
                     fontWeight='bold'
                     color='white'
                 >
-                    {firstName} {lastName}
+                    {studentName}
                 </Text>
                 <Text
                     fontSize='lg'
                     color='white'
                     fontWeight='semibold'
                 >
-                    {`${teacher}'s Class`}
+                    {teacherData ? `${formatTeacherName(teacherData)}'s Class` : ''}
                 </Text>
             </VStack>
         </>

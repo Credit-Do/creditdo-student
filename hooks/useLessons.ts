@@ -1,38 +1,27 @@
-import { db } from "../firebase/clientApp";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-import { collection, CollectionReference, doc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
-import { Lesson } from "./types";
-import { lessonDataInfo } from "../data/learn";
-import { title } from "process";
+import chunk from "lodash.chunk";
 
+import { defaultLessonsData } from "../data/lessons";
 
-const useLessons = (classId : string) => {
+import { Lesson } from "../types/lesson";
 
-   // const [lessons, loading, error] = useCollectionData<Lesson>(collection(db, "classes", classId, "lessons") as CollectionReference<Lesson>);
+const useLessons = (classId: string) => {
 
+    const [lessons, setLessons] = useState<Lesson[]>([]);
 
-    const getLessonData = (lessonId: string) => {
-        return lessonDataInfo;
-    }
+    useEffect(() => {
+        setLessons(defaultLessonsData)
+    }, []);
 
-    const partitionWeeks = (lessons: Lesson[]) => {
-        const weeklyLessons: Lesson[][] = [[], []];
-        lessons.forEach((element: Lesson) => {
-            if (element.week == 1){
-                weeklyLessons[0].push(element);
-            }
-            else{
-                weeklyLessons[1].push(element);
-            }
-        });
-        return weeklyLessons;
+    const partitionWeeks = () => {
+        return chunk(lessons, 3)
     } 
 
     return {
-        //lessons: partitionWeeks(lessons || []),
+        lessons,
+        partitionedLessons: lessons ? partitionWeeks() : [],
         getLessonData: (lessonId: string) => {},
-        //loading
     }
 }
 
