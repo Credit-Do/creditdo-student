@@ -15,7 +15,7 @@ import {
     InputLeftElement,
     VStack
 } from '@chakra-ui/react'
-import useCreateGoal from '../../../hooks/useCreateGoal';
+import useCreateGoal from '../../../hooks/goals/useCreateGoal';
 import LabeledInput from '../../utility/LabeledInput';
 import LabeledNumberInput from '../../utility/LabeledNumberInput';
 import LabeledDateInput from '../../utility/LabeledDatePicker';

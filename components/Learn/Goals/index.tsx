@@ -11,7 +11,7 @@ import { AddIcon } from '@chakra-ui/icons'
 import GoalsList from './GoalsList'
 import CreateGoal from './CreateGoal'
 
-import useGoals from '../../../hooks/useGoals'
+import useGoals from '../../../hooks/goals/useGoals'
 
 interface Props {
   userId: string

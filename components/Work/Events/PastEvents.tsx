@@ -1,6 +1,6 @@
 import { VStack, Text, HStack } from '@chakra-ui/react'
 import React from 'react'
-import usePastEvents from '../../../hooks/usePastEvents';
+import usePastEvents from '../../../hooks/events/usePastEvents';
 import { Event } from '../../../types/event'
 import PastEvent from './PastEvent'
 

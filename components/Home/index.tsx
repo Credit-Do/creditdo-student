@@ -5,7 +5,7 @@ import { Flex, Skeleton } from "@chakra-ui/react";
 import Header from "./Header";
 import Widgets from "./Widgets";
 
-import useStudentData from "../../hooks/useStudentData";
+import useStudentData from "../../hooks/student/useStudentData";
 
 const Home = () => {
 

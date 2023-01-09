@@ -4,8 +4,8 @@ import { Button, VStack } from '@chakra-ui/react'
 
 import Week from './Week'
 
-import useLessons from '../../../hooks/useLessons';
-import useSelectLesson from '../../../hooks/useSelectLesson';
+import useLessons from '../../../hooks/lessons/useLessons';
+import useSelectLesson from '../../../hooks/lessons/useSelectLesson';
 
 interface Props {
     classId: string;

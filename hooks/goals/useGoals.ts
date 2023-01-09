@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { goals } from '../data/goals'
+import { goals } from '../../data/goals'
 
-import { Goal } from "../types/goal";
+import { Goal } from "../../types/goal";
 
 const useGoals = (userId: string) => {
 

@@ -5,7 +5,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Skeleton } from '@chakra-ui/re
 import Events from './Events'
 import Metrics from './Metrics'
 
-import useStudentData from '../../hooks/useStudentData'
+import useStudentData from '../../hooks/student/useStudentData'
 
 const Work : React.FC = () => {
 

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { events } from "../data/events";
+import { events } from "../../data/events";
 
-import { Event } from "../types/event";
+import { Event } from "../../types/event";
 
 const usePastEvents = (classId: string) => {
     const [pastEvents, setPastEvents] = useState<Event[]>([]);

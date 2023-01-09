@@ -9,7 +9,7 @@ import {
 
 import Widget from './Widget';
 
-import useLessons from '../../../hooks/useLessons';
+import useLessons from '../../../hooks/lessons/useLessons';
 interface Props {
     classId: string
 }

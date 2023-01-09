@@ -5,7 +5,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, Skeleton } from '@chakra-ui/re
 import Lessons from './Lessons'
 import GoalsPage from './Goals'
 
-import useStudentData from '../../hooks/useStudentData'
+import useStudentData from '../../hooks/student/useStudentData'
 
 const Learn = () => {
 

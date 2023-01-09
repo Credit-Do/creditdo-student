@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 
 import chunk from "lodash.chunk";
 
-import { defaultLessonsData } from "../data/lessons";
+import { defaultLessonsData } from "../../data/lessons";
 
-import { Lesson } from "../types/lesson";
+import { Lesson } from "../../types/lesson";
 
 const useLessons = (classId: string) => {
 

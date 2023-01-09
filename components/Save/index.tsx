@@ -7,7 +7,7 @@ import Earned from './Earned'
 import EWalletBanner from './EWalletBanner'
 
 import { bannerHeight } from './EWalletBanner'
-import useStudentData from '../../hooks/useStudentData'
+import useStudentData from '../../hooks/student/useStudentData'
 
 const Save : React.FC = () => {
 

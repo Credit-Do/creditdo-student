@@ -8,10 +8,10 @@ import {
     Skeleton, 
 } from '@chakra-ui/react'
 
-import useStudentData from '../../hooks/useStudentData'
+import useStudentData from '../../hooks/student/useStudentData'
 import EditModal from './EditModal'
 import { formatStudentName, formatTeacherName } from '../../services/utils'
-import useTeacherData from '../../hooks/useTeacherData'
+import useTeacherData from '../../hooks/teacher/useTeacherData'
 
 const Header: React.FC = () => {
 

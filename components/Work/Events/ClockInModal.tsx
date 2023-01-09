@@ -15,7 +15,7 @@ import {
     HStack
 } from '@chakra-ui/react';
 
-import useClockIn from '../../../hooks/useClockIn';
+import useClockIn from '../../../hooks/events/useClockIn';
 import { ArrowBackIcon, RepeatClockIcon, TimeIcon } from '@chakra-ui/icons';
 import moment from 'moment';
 

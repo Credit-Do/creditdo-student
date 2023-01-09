@@ -6,7 +6,7 @@ import { FaHandshake } from 'react-icons/fa'
 import { BsPiggyBankFill } from 'react-icons/bs';
 
 import ActivityItem from './ActivityItem';
-import useSaveAmounts from '../../hooks/useSaveAmounts';
+import useSaveAmounts from '../../hooks/student/useSaveAmounts';
 
 const activities = [
     {

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import { defaultTeacherData } from '../data/teacher';
+import { defaultTeacherData } from '../../data/teacher';
 
-import { Teacher } from '../types/user';
+import { Teacher } from '../../types/user';
 
 const useTeacherData = (teacherId: string) => {
     const [teacherData, setTeacherData] = useState<Teacher>();

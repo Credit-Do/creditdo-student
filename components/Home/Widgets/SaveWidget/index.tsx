@@ -7,7 +7,7 @@ import { FaRegHandshake } from 'react-icons/fa'
 
 import Widget from '../Widget'
 import MetricDisplay from './MetricDisplay'
-import useSaveAmounts from '../../../../hooks/useSaveAmounts'
+import useSaveAmounts from '../../../../hooks/student/useSaveAmounts'
 
 interface Props {
   userId: string

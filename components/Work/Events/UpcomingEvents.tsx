@@ -4,7 +4,7 @@ import { Text, VStack } from '@chakra-ui/react'
 
 import UpcomingEvent from './UpcomingEvent'
 
-import useUpcomingEvents from '../../../hooks/useUpcomingEvents'
+import useUpcomingEvents from '../../../hooks/events/useUpcomingEvents'
 
 interface Props {
   classId: string,

@@ -5,7 +5,7 @@ import {
     amountSaved as amountSavedData,
     amountEarnedGoal as amountEarnedGoalData,
     amountSavedGoal as amountSavedGoalData
-} from "../data/save";
+} from "../../data/save";
 
 const useSaveAmounts = (userId: string) => {
 

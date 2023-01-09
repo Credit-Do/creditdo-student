@@ -14,7 +14,7 @@ import {
     VStack 
 } from '@chakra-ui/react';
 
-import useEditProfilePicture from '../../hooks/useEditProfilePicture';
+import useEditProfilePicture from '../../hooks/student/useEditProfilePicture';
 
 import { Student } from '../../types/user';
 import { formatStudentName } from '../../services/utils';

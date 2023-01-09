@@ -1,6 +1,6 @@
 import React from 'react'
 import NotLoggedIn from '../components/utility/NotLoggedIn'
-import useUserData from '../hooks/useStudentData'
+import useUserData from '../hooks/student/useStudentData'
 
 import MobileLayout from './MobileLayout'
 

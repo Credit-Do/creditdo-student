@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Checkbox, HStack, VStack, Text } from '@chakra-ui/react'
 
-import useCompleteGoal from '../../../hooks/useCompleteGoal'
+import useCompleteGoal from '../../../hooks/goals/useCompleteGoal'
 
 import { Goal } from '../../../types/goal'
 import moment from 'moment'

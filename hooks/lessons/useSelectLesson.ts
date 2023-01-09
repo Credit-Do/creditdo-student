@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Lesson } from "../types/lesson";
+import { Lesson } from "../../types/lesson";
 
 const useSelectLesson = () => {
     const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);

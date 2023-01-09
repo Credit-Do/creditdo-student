@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Student, User } from '../types/user';
+import { Student, User } from '../../types/user';
 
 const useEditProfilePicture = (studentData: Student) => {
 
