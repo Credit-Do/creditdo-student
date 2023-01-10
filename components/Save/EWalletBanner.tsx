@@ -14,7 +14,7 @@ const EWalletBanner = () => {
         left={0}
         w='100%'
         justifyContent='center'
-        shadow='sm'
+        shadow='lg'
     >
         <Text
             fontWeight='bold'

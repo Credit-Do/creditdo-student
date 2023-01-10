@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.0.12",
+    "@chakra-ui/icons": "^2.0.15",
     "@chakra-ui/react": "^2.2.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "firebase": "^9.9.2",
     "framer-motion": "^6",
+    "lodash.chunk": "^4.2.0",
+    "moment": "^2.29.4",
     "next": "^13.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,6 +24,7 @@
     "react-icons": "^4.7.1"
   },
   "devDependencies": {
+    "@types/lodash.chunk": "^4.2.7",
     "@types/node": "18.7.3",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",

@@ -1,11 +1,12 @@
 import React from 'react'
 
-import { Box, HStack, Text, Menu, MenuButton, Button, MenuList, MenuItem } from '@chakra-ui/react'
+import { Box, HStack, Text, Menu, MenuButton, Button, MenuList, MenuItem, VStack } from '@chakra-ui/react'
 
 import { BsPersonCircle } from 'react-icons/bs'
 import { RiArrowDropDownLine } from 'react-icons/ri'
 
 import LeaderboardItem from './LeaderboardItem'
+import useLeaderboard from '../../../../hooks/contributions/useLeaderboard'
 
 const leaderboardClasses = [
     {
@@ -45,29 +46,35 @@ const Leaderboard = () => {
     const [currentTeacherIndex, setCurrentTeacherIndex] = React.useState<number>(0);
     const [currentYearIndex, setCurrentYearIndex] = React.useState<number>(0);
 
+    const classMetrics = useLeaderboard();
+
     return (
-        <Box
+        <VStack
             w='100%'
+            spacing={4}
         >
             <HStack
                 w='100%'
                 justifyContent='space-between'
             >
                 <Text
-                    color='gray'
-                    fontSize='lg'
+                    color='blackAlpha.700'
+                    fontSize='xl'
                     fontWeight='bold'
                 >
                     Leaderboard
                 </Text>
-                <HStack>
+                <HStack
+                    spacing={0}
+                >
                     <Menu>
                         <MenuButton
                             as={Button}
                             rightIcon={<RiArrowDropDownLine />}
-                            color='cyan.500'
+                            colorScheme='cyan'
                             fontWeight='semibold'
-                            bg='white'
+                            variant='ghost'
+                            size='xs'
                         >
                             {dropdownOptionsTeacher[currentTeacherIndex]}
                         </MenuButton>
@@ -86,13 +93,14 @@ const Leaderboard = () => {
                             }
                         </MenuList>
                     </Menu>
-                    {/* <Menu>
+                    <Menu>
                         <MenuButton
                             as={Button}
                             rightIcon={<RiArrowDropDownLine />}
-                            color='cyan.500'
+                            colorScheme='cyan'
                             fontWeight='semibold'
-                            bg='white'
+                            variant='ghost'
+                            size='xs'
                         >
                             {dropdownOptionsYear[currentYearIndex]}
                         </MenuButton>
@@ -110,18 +118,19 @@ const Leaderboard = () => {
                                 ))
                             }
                         </MenuList>
-                    </Menu> */}
+                    </Menu>
                 </HStack>
             </HStack>
             {
-                leaderboardClasses.map((leaderboardClass, index) => (
+                classMetrics.map((classMetric, index) => (
                     <LeaderboardItem
                         key={index}
-                        {...leaderboardClass}
+                        ranking={index + 1}
+                        classMetric={classMetric}
                     />
                 ))
             }
-        </Box>
+        </VStack>
     )
 }
 

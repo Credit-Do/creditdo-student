@@ -11,20 +11,25 @@ interface Props {
     children: React.ReactNode
 }
 
-const MobileLayout : React.FC<Props> = ({ children}) => {
+const MobileLayout : React.FC<Props> = ({ children }) => {
   return (
     <Flex
       minH='100vh'
       direction='column'
       position='relative'
+      pb={`${navbarHeight}rem`}
     >
-      <Flex
-        flex={1}
-        direction='column'
-        pb={`${navbarHeight + 2}rem`}
-      >
-        {children}
-      </Flex>
+      {/* <Box
+      
+      > */}
+        <Flex
+          flex={1}
+          direction='column'
+          position='relative'
+        >
+          {children}
+        </Flex>
+      {/* </Box> */}
       <Navbar />
     </Flex>
   )
