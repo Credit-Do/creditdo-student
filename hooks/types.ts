@@ -87,14 +87,14 @@ export interface Class{
     lessons: string[]
 }
 
-export interface Lesson{
-    id: string,
-    title: string,
-    lengthHours: number,
-    subject: string,
-    dueDate: Date,
-    content: string,
-}
+// export interface Lesson{
+//     id: string,
+//     title: string,
+//     lengthHours: number,
+//     subject: string,
+//     dueDate: Date,
+//     content: string,
+// }
 
 export interface Event{
     id: string,
