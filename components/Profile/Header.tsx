@@ -28,7 +28,7 @@ const Header : React.FC = () => {
             color='white'
             fontWeight='semibold'
         >
-            Ms. Garcia{'&apos;'}s Class
+            Ms. Garcia&apos;s Class
         </Text>
     </VStack>
   )
