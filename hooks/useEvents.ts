@@ -5,9 +5,9 @@ import { collection, CollectionReference, doc, updateDoc } from "firebase/firest
 import { Event } from "../types/event"
 import { eventGData } from "../data/learn"
 
-const useEvents = (classId: string, eventId: string) => {
+const useEvents = (classId: string) => {
 
-    const [ event, loading, error] = useCollectionData<Event>(collection(db, 'classes', classId, 'events', eventId) as CollectionReference<Event>);
+    const [ event, loading, error] = useCollectionData<Event>(collection(db, 'classes', classId, 'events') as CollectionReference<Event>);
 
     const getEventData = (eventId: string) => {
         return eventGData;
