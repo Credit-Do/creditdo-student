@@ -1,6 +1,13 @@
-import { Goal } from "./types";
+import { Goal, PersonalGoal, goalStatus } from "./types";
 import { useState } from "react";
 import { lessonData, eventGData, shortGData, longGData, doneGData } from '../data/learn'
+import { db } from "../firebase/clientApp";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { collection, CollectionReference, doc, updateDoc, orderBy, query } from "firebase/firestore";
+
+type GoalBuckets = {
+    [key in typeof goalStatus[number]]: PersonalGoal[];
+}
 
 const useGoals = () => {
 
@@ -70,4 +77,41 @@ const useGoals = () => {
     }
 }
 
+export const usePersonalGoal = (userId: string) =>{
+    const [goals, loading, error] = useCollectionData<PersonalGoal>(query(collection(db, "students", userId, "personalGoals") as CollectionReference<PersonalGoal>, orderBy("completed", "asc")));
+    const markComplete = async (goalId: string) => {
+        return updateDoc(doc(db, "students", userId, "personalGoals", goalId), {completed: true});
+    }
+    const markIncomplete = async (goalId: string) => {
+        return updateDoc(doc(db, "students", userId, "personalGoals", goalId), {completed: false});
+    }
+    const getGoalBuckets = () : GoalBuckets =>{
+        const emptyBuckets: GoalBuckets = {
+            'Short Term': [],
+            'Long Term': [],
+            'Completed': []
+        }
+        if (goals){
+            return goals.reduce((acc, goal) => {
+                if (goal.completed){
+                    acc['Completed'].push(goal);
+                }
+                else{
+                    if (goal.type === 'short') acc['Short Term'].push(goal);
+                    else acc['Long Term'].push(goal);
+                }
+                return acc;
+            },
+            emptyBuckets)
+        }
+        return emptyBuckets;
+    } 
+    return {
+        goalBuckets: getGoalBuckets(),
+        loading,
+        markComplete,
+        markIncomplete
+    }
+}
+ 
 export default useGoals;

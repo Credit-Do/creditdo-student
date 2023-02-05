@@ -121,3 +121,5 @@ export interface EventGoal{
     description: string,
     completed: boolean,
 }
+
+export const goalStatus = ['Long Term', 'Short Term', 'Completed'] as const;
