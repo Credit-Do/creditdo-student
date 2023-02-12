@@ -2,30 +2,11 @@ import React from 'react'
 
 import { Button, HStack, Image, Text, VStack, Box } from '@chakra-ui/react'
 import { FaClock, FaMapMarkerAlt } from 'react-icons/fa'
-
-interface Event {
-    title: string;
-    type: string;
-    day: string;
-    month: string;
-    date: number;
-    time: string;
-    location: string;
-    image: string;
-}
-
-const event : Event = {
-    title: 'Food Drive',
-    type: 'Supply School Drive',
-    month: 'Aug',
-    date: 21,
-    day: "Sat",
-    time: '10:00 AM',
-    location: '1234 Main St, New York, NY',
-    image: 'https://via.placeholder.com/150'
-}
+import useEvents from '../../../hooks/useEvents'
 
 const UpcomingEvents = () => {
+  const { upcomingEventData } = useEvents(""); 
+  const event = upcomingEventData[0]
   return (
     <VStack
       alignItems='flex-start'
@@ -41,7 +22,7 @@ const UpcomingEvents = () => {
           position='relative'
         >
           <Image 
-            src={event.image}
+            src={event.imageURL}
             alt='event image'
           />
           <VStack

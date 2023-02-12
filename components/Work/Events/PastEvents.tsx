@@ -1,30 +1,11 @@
 import { VStack, Text, HStack } from '@chakra-ui/react'
 import React from 'react'
-import { Event } from '../../../types/event'
+import useEvents from '../../../hooks/useEvents'
 import PastEvent from './PastEvent'
 
-const pastEvents : Event[] = [
-    {
-        title: 'Food Drive',
-        type: 'Supply School Drive',
-        month: 'Aug',
-        date: "21",
-        day: "Sat",
-        time: '10:00 AM',
-        imageURL: 'https://via.placeholder.com/75'
-    },
-    {
-        title: 'Food Drive',
-        type: 'Supply School Drive',
-        month: 'Aug',
-        date: "21",
-        day: "Sat",
-        time: '10:00 AM',
-        imageURL: 'https://via.placeholder.com/75'
-    },
-]
-
 const PastEvents = () => {
+    const { pastEventData } = useEvents(""); 
+
   return (
     <VStack
         alignItems='flex-start'
@@ -39,7 +20,7 @@ const PastEvents = () => {
             w="100%"
         >
             {
-                pastEvents.map((event, index) => (
+                pastEventData.map((event, index) => (
                     <PastEvent 
                         key={index}
                         event={event}

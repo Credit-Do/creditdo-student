@@ -1,5 +1,6 @@
 import { Timestamp } from "firebase/firestore";
 import { Goal, LessonData } from '../hooks/types'
+import { Event } from '../types/event'
 const now = new Date();
 
 export const lessonData = [
@@ -128,3 +129,39 @@ export const lessonDataInfo: LessonData = {
     id: '1234132',
     text: "TEST TEST TEST TEST",
 }
+
+export var pastEventData: Event[] = [
+    {
+        title: 'Food Drive',
+        type: 'Supply School Drive',
+        month: 'Aug',
+        date: "21",
+        day: "Sat",
+        time: '10:00 AM',
+        location: '1234 Main St, New York, NY',
+        imageURL: 'https://via.placeholder.com/75'
+    },
+    {
+        title: 'Food Drive',
+        type: 'Supply School Drive',
+        month: 'Aug',
+        date: "21",
+        day: "Sat",
+        time: '10:00 AM',
+        location: '1234 Main St, New York, NY',
+        imageURL: 'https://via.placeholder.com/75'
+    },
+]
+
+export var upcomingEventData: Event[] = [
+    {
+        title: 'Food Drive',
+        type: 'Supply School Drive',
+        month: 'Aug',
+        date: "21",
+        day: "Sat",
+        time: '10:00 AM',
+        location: '1234 Main St, New York, NY',
+        imageURL: 'https://via.placeholder.com/150'
+    }
+]
