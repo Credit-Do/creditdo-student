@@ -13,6 +13,7 @@ interface Props {
 }
 
 const PastEvent : React.FC<Props> = ({ event }) => {
+
   return (
     <Card
         p={0}

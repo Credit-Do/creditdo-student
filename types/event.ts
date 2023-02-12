@@ -6,4 +6,5 @@ export interface Event {
     day: string;
     date: string;
     imageURL: string;
+    location: string;
 }
