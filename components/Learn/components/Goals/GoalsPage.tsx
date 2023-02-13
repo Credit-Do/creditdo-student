@@ -1,15 +1,15 @@
 import { AddIcon } from '@chakra-ui/icons'
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Text, Input, useDisclosure, VStack, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/react'
 import React, { useRef, useState } from 'react'
-import { Goal } from '../../../../hooks/types'
+import { Goal, PersonalGoal } from '../../../../hooks/types'
 import useGoals from '../../../../hooks/useGoals'
 import GoalsList from './GoalsList'
 
 interface Props {
-    eventGoals: Goal[]
-    shortTermGoals: Goal[]
-    longTermGoals: Goal[]
-    done: Goal[]
+    eventGoals: PersonalGoal[]
+    shortTermGoals: PersonalGoal[]
+    longTermGoals: PersonalGoal[]
+    done: PersonalGoal[]
 }
 
 const GoalsPage: React.FC<Props> = ({eventGoals, shortTermGoals, longTermGoals, done}) => {

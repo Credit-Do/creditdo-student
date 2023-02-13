@@ -1,11 +1,11 @@
 import { Heading, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { Goal } from '../../../../hooks/types'
+import { Goal, PersonalGoal } from '../../../../hooks/types'
 import GoalComponent from './GoalComponent'
 
 interface Props {
     name: string
-    goalList: Goal[]
+    goalList: PersonalGoal[]
     onClick: (goal: Goal) => void
 }
 

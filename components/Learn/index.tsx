@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { WeeklyLessons } from '../../hooks/types'
-import useGoals from '../../hooks/useGoals'
+import { usePersonalGoal } from '../../hooks/useGoals'
 import LearnPage from './components/Lessons/LearnPage'
 import { lessonData } from '../../data/learn'
 import GoalsPage from './components/Goals/GoalsPage'
@@ -10,7 +10,7 @@ import GoalsPage from './components/Goals/GoalsPage'
 const Learn = () => {
     const weeklyLessons: WeeklyLessons[] = lessonData;
 
-    const { eventList, shortList, longList, doneList } = useGoals();
+    const { goalBuckets, markComplete, markIncomplete } = usePersonalGoal();
 
   return (
     <Tabs isFitted
@@ -26,10 +26,10 @@ const Learn = () => {
             </TabPanel>
             <TabPanel>
                 <GoalsPage 
-                    eventGoals={eventList} 
-                    shortTermGoals={shortList} 
-                    longTermGoals={longList} 
-                    done={doneList}/>
+                    eventGoals={[]} 
+                    shortTermGoals={goalBuckets['Short Term']} 
+                    longTermGoals={goalBuckets['Long Term']} 
+                    done={goalBuckets['Completed']}/>
             </TabPanel>
         </TabPanels>
     </Tabs>
