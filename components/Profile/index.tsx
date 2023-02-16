@@ -6,6 +6,8 @@ import Header from './Header'
 import Actions from './Actions'
 
 const Profile = () => {
+
+
   return (
     <VStack
       direction='column'
