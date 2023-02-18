@@ -9,7 +9,7 @@ export default function Home() {
 
   const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
-
+  console.log(user);
   // If login fails, display error
   if (error) {
     console.log(error);

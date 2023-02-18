@@ -1,9 +1,8 @@
 import React from 'react'
-
 import { VStack } from '@chakra-ui/react'
-
 import Header from './Header'
 import Actions from './Actions'
+import { useRouter } from 'next/router'
 
 const Profile = () => {
 

@@ -3,13 +3,22 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { Formik, Field } from 'formik';
+import useAuth from '../../hooks/useAuth';
+
+
 
 // Displays the login page
 const Login: React.FC = () => {
 
   const router = useRouter();
+
   const [ pShow, setPShow ] = useState(false);
   const handlePShowClick = () => setPShow(!pShow);
+  const { signIn, auth } = useAuth();
+
+  if(auth) {
+    router.push('/');
+  }
 
   return (
     <VStack justifyContent="center" height="100vh" width="100%">
@@ -32,11 +41,11 @@ const Login: React.FC = () => {
         <VStack justifyContent="center">
       <Formik
         initialValues={{
-            username: '',
+            email: '',
             password: '',
         }}
         onSubmit={(values) => {
-          alert(JSON.stringify(values, null, 2));
+          signIn(values.email, values.password);
         }}
         // validate={validate}
       >
@@ -44,13 +53,13 @@ const Login: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <VStack spacing={4} align="flex-start" padding={10}>
                 <FormControl>
-                    <FormLabel htmlFor="username">Username</FormLabel>
+                    <FormLabel htmlFor="email">Email</FormLabel>
                     <Field
                         as={Input}
-                        id="username"
-                        name="username"
-                        type="username"
-                        placeholder="Username"
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
                     />
                 </FormControl>
                 <FormControl>
