@@ -6,25 +6,17 @@ import GoalComponent from './GoalComponent'
 interface Props {
     name: string
     goalList: PersonalGoal[]
-    onClick: (goal: Goal) => void
+    onClick: (goal: PersonalGoal) => void
 }
-
 
 const GoalsList: React.FC<Props> = ({name, goalList, onClick}) => {
 
-    const generateGoal = (goal: Goal, index: number) => {
-        let caption: string = '';
-        if (goal.location) {
-            caption = '@ ' + goal.location;
-        }
-        else{
-            caption = 'For ' + goal.reason;
-        }
+    const generateGoal = (goal: PersonalGoal, index: number) => {
+        
         return (
             <GoalComponent 
                 key={index} 
                 goal={goal}
-                caption={caption} 
                 onClick={onClick}
             />
         )

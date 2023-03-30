@@ -63,11 +63,12 @@ export interface Student{
 }
 
 export interface PersonalGoal{
+    goal: string,
     id: string,
-    description: string,
+    cost: number,
+    dueDate: Date,
     type: string,
     completed: boolean,
-    dueDate: Date,
 }
 
 export interface StudentMetaData{

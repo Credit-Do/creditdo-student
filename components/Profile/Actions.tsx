@@ -64,7 +64,7 @@ const Action: React.FC<ActionProps> = ({ href, text, icon }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { auth, user, loading, signOut } = useAuth()
 
-    if (!auth) router.push('/login');
+    // if (!auth) router.push('/login');
 
     if (text === "Privacy Policy") {
         return (

@@ -16,9 +16,10 @@ import {
     useDocumentData
 } from 'react-firebase-hooks/firestore';
 
-import { doc, DocumentReference, setDoc } from 'firebase/firestore'
+import { doc, DocumentReference, setDoc, query, collection, where, getDocs } from 'firebase/firestore'
 
 import { Student } from './types';
+import { useEffect, useState } from 'react';
 
 interface ReturnType {
     auth: User | null | undefined;
@@ -41,7 +42,25 @@ const init : ReturnType = {
 const useAuth = () : ReturnType => {
 
     const [authObj, authLoading] = useAuthState(auth);
-    const [Student, userLoading] = useDocumentData<Student>(authObj && doc(db, 'teachers', authObj.uid) as DocumentReference<Student>);
+    const q = query(collection(db, 'students'), where("parentEmail", "==", authObj?.email ? authObj.email : ''));
+    const [ Student, setStudent ] = useState<Student | null>(null);
+    useEffect(() => {
+        const func = async () => {
+            if (!authObj) return;
+            const querySnapshot = await getDocs(q);
+            const data: Student = {
+                id: querySnapshot.docs[0].id,
+                firstName: querySnapshot.docs[0].data().firstName,
+                parentEmail: querySnapshot.docs[0].data().parentEmail,
+                lastName: querySnapshot.docs[0].data().lastName,
+                classId: querySnapshot.docs[0].data().classId,
+                personalGoals: querySnapshot.docs[0].data().personalGoals,
+                completedLessons: querySnapshot.docs[0].data().completedLessons,
+            }
+            setStudent(data)
+        }
+        func();
+    }, [authObj])
 
     const signIn = async (email: string, password: string) => {
         await signInWithEmailAndPassword(auth, email, password);
@@ -63,7 +82,7 @@ const useAuth = () : ReturnType => {
     return {
         auth: authObj,
         user: Student,
-        loading: authLoading || userLoading,
+        loading: authLoading,
         signIn,
         signOut,
         //updateUser
