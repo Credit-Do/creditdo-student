@@ -1,30 +1,22 @@
 import { Heading, VStack } from '@chakra-ui/react'
 import React from 'react'
-import { Goal } from '../../../../hooks/types'
+import { Goal, PersonalGoal } from '../../../../hooks/types'
 import GoalComponent from './GoalComponent'
 
 interface Props {
     name: string
-    goalList: Goal[]
-    onClick: (goal: Goal) => void
+    goalList: PersonalGoal[]
+    onClick: (goal: PersonalGoal) => void
 }
-
 
 const GoalsList: React.FC<Props> = ({name, goalList, onClick}) => {
 
-    const generateGoal = (goal: Goal, index: number) => {
-        let caption: string = '';
-        if (goal.location) {
-            caption = '@ ' + goal.location;
-        }
-        else{
-            caption = 'For ' + goal.reason;
-        }
+    const generateGoal = (goal: PersonalGoal, index: number) => {
+        
         return (
             <GoalComponent 
                 key={index} 
                 goal={goal}
-                caption={caption} 
                 onClick={onClick}
             />
         )

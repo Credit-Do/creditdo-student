@@ -1,15 +1,14 @@
 import { Checkbox, HStack, VStack, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { Goal } from '../../../../hooks/types'
+import { Goal, PersonalGoal } from '../../../../hooks/types'
 
 interface Props {
-  goal: Goal,
-  caption: string,
-  onClick: (goal: Goal) => void
+  goal: PersonalGoal,
+  onClick: (goal: PersonalGoal) => void
 }
 
-const GoalComponent: React.FC<Props> = ({ goal, caption, onClick}) => {
- 
+const GoalComponent: React.FC<Props> = ({ goal, onClick}) => {
+
   if (!goal.completed) {
     return (
       <Checkbox 
@@ -24,10 +23,10 @@ const GoalComponent: React.FC<Props> = ({ goal, caption, onClick}) => {
           alignItems='left'
         >
             <HStack spacing='1'>
-                <Text fontSize='md' as='b'>{goal.title}</Text>
+                <Text fontSize='md' as='b'>{goal.goal}</Text>
                 <Text fontSize='sm' color='gray'>{"on " + goal.dueDate.getMonth().toString() + "/" + goal.dueDate.getDate().toString()}</Text>
             </HStack>
-            <Text fontSize='sm'>{caption}</Text>
+            <Text fontSize='sm'>{goal.cost}</Text>
         </VStack>
       </Checkbox>
     )
@@ -46,10 +45,10 @@ const GoalComponent: React.FC<Props> = ({ goal, caption, onClick}) => {
       alignItems='left'
     >
         <HStack spacing='1'>
-            <Text fontSize='md' as='del' color='green'>{goal.title}</Text>
+            <Text fontSize='md' as='del' color='green'>{goal.goal}</Text>
             <Text fontSize='sm' color='green' as='del'>{"on " + goal.dueDate.getMonth().toString() + "/" + goal.dueDate.getDate().toString()}</Text>
         </HStack>
-        <Text fontSize='sm' color='green' as='del'>{caption}</Text>
+        <Text fontSize='sm' color='green' as='del'>{goal.cost}</Text>
     </VStack>
   </Checkbox>
   )

@@ -1,16 +1,18 @@
 import React from 'react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { WeeklyLessons } from '../../hooks/types'
-import useGoals from '../../hooks/useGoals'
+import usePersonalGoal from '../../hooks/useGoals'
 import LearnPage from './components/Lessons/LearnPage'
-import { lessonData } from '../../data/learn'
 import GoalsPage from './components/Goals/GoalsPage'
+import useAuth from '../../hooks/useAuth'
 
 
 const Learn = () => {
-    const weeklyLessons: WeeklyLessons[] = lessonData;
 
-    const { eventList, shortList, longList, doneList } = useGoals();
+    const { user } = useAuth();
+
+    const { goalBuckets, loading, markComplete, markIncomplete, addGoal } = usePersonalGoal(user?.id ? user.id : ' ');
+    if (loading) return (<div>Loading...</div>);
 
   return (
     <Tabs isFitted
@@ -21,15 +23,15 @@ const Learn = () => {
             <Tab>My Goals</Tab>
         </TabList>
         <TabPanels>
-            <TabPanel>
-                <LearnPage schedule={weeklyLessons}/>
-            </TabPanel>
+            {/* <TabPanel>
+                <LearnPage schedule={}/>
+            </TabPanel> */}
             <TabPanel>
                 <GoalsPage 
-                    eventGoals={eventList} 
-                    shortTermGoals={shortList} 
-                    longTermGoals={longList} 
-                    done={doneList}/>
+                    eventGoals={[]} 
+                    shortTermGoals={goalBuckets['Short Term']} 
+                    longTermGoals={goalBuckets['Long Term']} 
+                    done={goalBuckets['Completed']}/>
             </TabPanel>
         </TabPanels>
     </Tabs>

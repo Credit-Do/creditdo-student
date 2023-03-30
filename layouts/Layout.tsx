@@ -4,11 +4,12 @@ import MobileLayout from './MobileLayout'
 
 interface Props {
     children: React.ReactNode
+    noDisplayNav?: boolean
 }
 
-const Layout : React.FC<Props> = ({ children }) => {
+const Layout : React.FC<Props> = ({ children, noDisplayNav }) => {
   return (
-    <MobileLayout>
+    <MobileLayout noDisplayNav={noDisplayNav}>
         {children}
     </MobileLayout>
   )

@@ -1,11 +1,10 @@
 import React from 'react'
-
 import Link from 'next/link';
-
 import { Button, HStack, Icon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, VStack } from '@chakra-ui/react'
-
 import { IconType } from 'react-icons';
 import { FaCog, FaLock, FaPhoneAlt, FaInfoCircle, FaSignOutAlt } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
+import router from 'next/router';
 
 const actionsData: ActionProps[] = [
     {
@@ -60,8 +59,13 @@ interface ActionProps {
     icon: IconType;
 }
 
+
 const Action: React.FC<ActionProps> = ({ href, text, icon }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { auth, user, loading, signOut } = useAuth()
+
+    // if (!auth) router.push('/login');
+
     if (text === "Privacy Policy") {
         return (
             <Button
@@ -112,6 +116,39 @@ const Action: React.FC<ActionProps> = ({ href, text, icon }) => {
         )
     }
 
+    if (text === "Log Out") {
+        return (
+            <Button
+                bg='orange.400'
+                padding={10}
+                _hover={{ bg: 'none' }}
+                onClick={() => signOut()}
+            >
+                <HStack
+                    w='100%'
+                    borderBottomColor='whiteAlpha.500'
+                    borderBottomWidth='1px'
+                    spacing={8}
+                    py={6}
+                >
+                    <Icon
+                        as={icon}
+                        color='white'
+                        h={6}
+                        w={6}
+                    />
+                    <Text
+                        fontSize='lg'
+                        color='white'
+                        fontWeight='semibold'
+                    >
+                        {text}
+                    </Text>
+                </HStack>
+            </Button>
+        )
+    }
+
     return (
         <Link
             href={href}
@@ -140,5 +177,8 @@ const Action: React.FC<ActionProps> = ({ href, text, icon }) => {
         </Link>
     )
 }
+
+
+
 
 export default Actions

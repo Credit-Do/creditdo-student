@@ -1,73 +1,102 @@
-import { Goal } from "./types";
+import { Goal, PersonalGoal, goalStatus } from "./types";
 import { useState } from "react";
-import { lessonData, eventGData, shortGData, longGData, doneGData } from '../data/learn'
+import { db } from "../firebase/clientApp";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { collection, CollectionReference, doc, updateDoc, orderBy, query, getDocs, addDoc, Timestamp } from "firebase/firestore";
 
-const useGoals = () => {
+type GoalBuckets = {
+    [key in typeof goalStatus[number]]: PersonalGoal[];
+}
 
-    const [ eventList, setEventList ] = useState(eventGData);
-    const [ shortList, setShortList ] = useState(shortGData);
-    const [ longList, setLongList ] = useState(longGData);
-    const [ doneList, setDoneList ] = useState(doneGData);
+type FBPersonalGoals = {
+    goal: string,
+    id: string,
+    cost: number,
+    dueDate: Timestamp,
+    type: string,
+    completed: boolean,
+}
+
+const usePersonalGoal = (userId: string | undefined) =>{
+    const goalsCol = userId && collection(db, 'students', userId, 'personalGoals');
+
+    const [goals] = useCollectionData<FBPersonalGoals>(goalsCol as CollectionReference<FBPersonalGoals>);
     
-    const completeGoal = (goal: Goal) => {
-        goal.completed = !goal.completed;
-        var goalList: Goal[];
-        if (goal.type === 'event') goalList = eventList;
-        else if (goal.type === 'short') goalList = shortList;
-        else goalList = longList;
-
-
-        for (let i = 0; i < goalList.length; ++i) {
-            if (goalList[i].id === goal.id) {
-                goalList.splice(i, 1);
-                break;
-            }
-        }
-        var newDoneList = doneList;
-        newDoneList.push(goal);
-        setDoneList(newDoneList);
-
-        if(goal.type === 'event') setEventList(goalList);
-        else if(goal.type === 'short') setShortList(goalList);
-        else setLongList(goalList);
+    const markComplete = async (goalId: string) => {
+        console.log('goalid')
+        console.log(goalId);
+        if(goalsCol)
+            return updateDoc(doc(goalsCol, goalId), {completed: true});
     }
+    const markIncomplete = async (goalId: string) => {
+        console.log(goalId);
+        if(goalsCol)
+            return updateDoc(doc(goalsCol, goalId), {completed: false});
+    }
+    const getGoalBuckets = () : GoalBuckets =>{
+        const emptyBuckets: GoalBuckets = {
+            'Short Term': [],
+            'Long Term': [],
+            'Completed': []
+        }
+        if(!goals){
+            return emptyBuckets;
+        }
+        if (goals){
+            return goals.reduce((acc, goal) => {
+                const personalGoal: PersonalGoal = {
+                    goal: goal.goal,
+                    id : goal.id,
+                    cost: goal.cost,
+                    dueDate: goal.dueDate.toDate(),
+                    type: goal.type,
+                    completed: goal.completed,
+                }
 
-    const uncompleteGoal = (goal: Goal) => {
-        goal.completed = !goal.completed;
-        var list: Goal[] = doneList;
-        for (let i = 0; i < list.length; ++i) {
-            if(list[i].id === goal.id) {
-                list.splice(i, 1);
-                break;
-            }
+                if (goal.completed){
+                    acc['Completed'].push(personalGoal);
+                }
+                else{
+                    if (goal.type === 'short') acc['Short Term'].push(personalGoal);
+                    else acc['Long Term'].push(personalGoal);
+                }
+                return acc;
+            },
+            emptyBuckets)
         }
-        setDoneList(list);
+        return emptyBuckets;
+    } 
 
-        if(goal.type === 'event'){
-            const newList = eventList;
-            newList.push(goal);
-            setEventList(newList);
+    const addGoal = async (goal: string, cost: number, date: Date, type: string) => {
+        if (!goalsCol) return;
+        const goalObj: PersonalGoal = {
+            goal,
+            id: '',
+            cost,
+            dueDate: date,
+            type,
+            completed: false,
         }
-        else if(goal.type === 'short'){
-            const newList = shortList;
-            newList.push(goal);
-            setShortList(newList);
-        }
-        else {
-            const newList = longList;
-            newList.push(goal);
-            setLongList(newList);
+        const docRef = await addDoc(goalsCol, goalObj);
+        updateDoc(docRef, {id: docRef.id});
+    }
+    if (userId === ' '){
+        return {
+            goalBuckets: getGoalBuckets(),
+            loading: true,
+            markComplete,
+            markIncomplete,
+            addGoal,
         }
     }
 
     return {
-        eventList,
-        shortList,
-        longList,
-        doneList,
-        completeGoal,
-        uncompleteGoal
+        goalBuckets: getGoalBuckets(),
+        loading: false,
+        markComplete,
+        markIncomplete,
+        addGoal,
     }
 }
-
-export default useGoals;
+ 
+export default usePersonalGoal;
